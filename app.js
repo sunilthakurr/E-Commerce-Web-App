@@ -45,6 +45,8 @@ let configSession = {
     }
 }
 
+
+
 app.engine('ejs' , ejsMate);
 app.set('view engine' , 'ejs');
 app.set('views' , path.join(__dirname , 'views')); // views folder 
@@ -53,6 +55,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(session(configSession)); 
 app.use(flash());
+
+
 
 // passport waali
 app.use(passport.initialize());
@@ -69,16 +73,24 @@ app.use((req,res,next)=>{
     next();
 })
 
+
+
  // passport 
  passport.use(new localStrategy(User.authenticate()));
 
 // seeding database
 // seedDB()
 
+
+app.get('/healthcheck', (req, res) =>{
+    res.send("server started successfully");
+})
+
 app.use(productRoutes); //so that harr incoming request ke liye path check kiya jaae
 app.use(reviewRoutes);  //so that harr incoming request ke liye path check kiya jaae
 app.use(authRoutes);
 app.use(cartRoutes);
+
 
 
 
