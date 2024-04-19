@@ -13,6 +13,7 @@ const User = require('./models/User')
 const flash = require('connect-flash');
 const session = require('express-session');
 
+const http = require('http').Server(app);
 
 
 const productRoutes = require('./routes/product')
@@ -25,14 +26,17 @@ const cartRoutes = require('./routes/cart')
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
-.then(()=>{
-    console.log("DB connected successfully")
-})
-.catch((err)=>{
-    console.log("DB error"); 
-    console.log(err)
-})
+// mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
+// .then(()=>{
+//     console.log("DB connected successfully")
+// })
+// .catch((err)=>{
+//     console.log("DB error"); 
+//     console.log(err)
+// })
+
+mongoose.connect("mongodb+srv://sunilthakurkv:CyV7hCmq6tNruGV5@cluster0.hg02nxe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+
 // session
 let configSession = {
     secret: 'keyboard cat',
@@ -98,7 +102,7 @@ app.use(cartRoutes);
 
 
 
-app.listen(8080 , ()=>{
+http.listen(8080 , ()=>{
     console.log("server connected at port 8080")
 })
 
